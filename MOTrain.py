@@ -15,8 +15,6 @@ from transformers import DataCollatorForLanguageModeling
 import sys
 import torch.nn as nn
 
-subset = sys.argv[1]
-
 max_len = 2048 # replace with the max input length of your model, recommend no less than 2k
 
 model_name = "CodeLlama-7b-Instruct-hf" # replace with the model name you want to train
@@ -87,8 +85,7 @@ class TaskPrefixDataCollator(DataCollatorForLanguageModeling):
 class TaskPrefixTrainer(SFTTrainer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.weight_beta = float(sys.argv[3])
-        self.separator_token_id = 0
+        self.weight_beta = float(sys.argv[1])
 
     def compute_loss(self, model, inputs, return_outputs=False):
         print(inputs.keys())
