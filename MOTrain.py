@@ -17,7 +17,7 @@ import torch.nn as nn
 
 max_len = 2048 # replace with the max input length of your model, recommend no less than 2k
 
-model_name = "CodeLlama-7b-Instruct-hf" # replace with the model name you want to train
+model_name = "CodeLlama-7b-Instruct-hf" # replace with the model name you want to train. Note that, if you are using a non-CodeLlama model, you need to modify the trainset.json
 
 full_dataset = load_dataset("json", data_files="trainset.json", split="train") # replace with your dataset location
 
