@@ -1,5 +1,6 @@
 rm tmp/* || mkdir tmp
 rm logs/* || mkdir logs
+mkdir models || true
 python3 calc_cpp.py codellama13b-baseline $1 > logs/cpp-codellama13b-baseline.log
 python3 calc_cpp.py codellama13b-stdft $1 > logs/cpp-codellama13b-stdft.log
 python3 calc_cpp.py codellama13b-morepair $1 > logs/cpp-codellama13b-morepair.log

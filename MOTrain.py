@@ -17,11 +17,11 @@ import torch.nn as nn
 
 max_len = 2048 # replace with the max input length of your model, recommend no less than 2k
 
-model_name = "CodeLlama-7b-Instruct-hf" # replace with the model name you want to train. Note that, if you are using a non-CodeLlama model, you need to modify the trainset.json
+model_name = sys.argv[1] # such as "CodeLlama-7b-Instruct-hf" the model name you want to train.
 
-full_dataset = load_dataset("json", data_files="trainset.json", split="train") # replace with your dataset location
+full_dataset = load_dataset("json", data_files=sys.argv[2], split="train") # replace with your dataset location
 
-output_dir = 'output_model' # replace with your output model location
+output_dir = 'models/' + sys.argv[3] # fine-tuned model location
 
 # load as 4bit model, prepare for qlora
 bnb_config = BitsAndBytesConfig(
