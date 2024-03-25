@@ -24,12 +24,13 @@ for id in range(10):
         for file_path in sorted(glob.glob(os.path.join(directory_path, '*.java')), reverse=False):
             print(file_path)
             name = file_path.split('/')[-1].split('.')[0]
-            ret, detail = test(id, name, sys.argv[1])
-            res = (int)(open(file_path + '.result', 'r').read())
+            if sys.argv[-1] == "rejudge":
+                ret, detail = test(id, name, sys.argv[1])
+            else:
+                ret = (int)(open(file_path + '.result', 'r').read())
             if ret == 0:
                 ac[name] = ac.get(name, 0) + 1
                 if id < 5:
                     ac5[name] = ac5.get(name, 0) + 1
-            ss += 1
-            print(bug, ss)
-            print('TOP-10:', len(ac) / 163 * 100, 'TOP-5:', len(ac5) / 163 * 100, 'TOT:', 163)
+
+print('TOP-10:', len(ac) / 163 * 100, 'TOP-5:', len(ac5) / 163 * 100)

@@ -47,14 +47,29 @@ pip3 install tokenizers==0.15.0
 pip3 install torch==2.0.1+cu117 transformers==4.36.2 wandb==0.16.0 peft==0.6.1 trl==0.7.4 numpy==1.24.2
 ```
 
-### RQ-1) How effective is fine-tuning with two objectives for program repair?
+### RQ-1) Effectiveness of Multi-objective Fine-tuning for Program Repair
+
 ```
 bash rq1.sh
+# or run the following command to rejudge all the results
+bash rq1.sh rejudge
 ```
 
-### RQ-2) How does model size or type impact repair performance of MORepair?
+### RQ-2) Impact of Size or Type for Fine-tuning LLMs on Code Repair Performance
 
-### RQ-3) How does MORepair compare against MORepair with human guidance and state-of-the-art fine-tuning methods?
+```
+bash rq2.sh
+# or run the following command to rejudge all the results
+bash rq2.sh rejudge
+```
+
+### RQ-3) Evaluating the Impact of Guidance Sources and Comparing MOREPAIR against State-of-the-Art Fine-tuning Methods
+
+```
+bash rq3.sh
+# or run the following command to rejudge all the results
+bash rq3.sh rejudge
+```
 
 ### Optional: Model Training
 

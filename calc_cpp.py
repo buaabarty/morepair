@@ -27,10 +27,13 @@ for id in range(10):
         for file_path in sorted(glob.glob(os.path.join(directory_path, '*.cpp')), reverse=False):
             print(file_path)
             name = file_path.split('/')[-1].split('.')[0]
-            ret, detail = test(id, name, sys.argv[1])
-            f1 = int(open(file_path + '.result', 'r').read())
+            if sys.argv[-1] == "rejudge":
+                ret, detail = test(id, name, sys.argv[1])
+            else:
+                ret = (int)(open(file_path + '.result', 'r').read())
             if ret == 0:
                 ac[name] = ac.get(name, 0) + 1
                 if id < 5:
                     ac5[name] = ac5.get(name, 0) + 1
-            print('TOP-10:', len(ac) / 164 * 100, 'TOP-5:', len(ac5) / 164 * 100, 'TOT:', 164)
+
+print('TOP-10:', len(ac) / 164 * 100, 'TOP-5:', len(ac5) / 164 * 100)
