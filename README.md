@@ -1,14 +1,10 @@
 # Multi-Objective Fine-Tuning for Enhanced Program Repair with LLMs
 
 ## MORepair
-MORepair ...
+MORepair, a novel **M**ulti-**O**bjective fine-tuning framework designed specifically for LLM-based program **Repair**. \tool steers LLMs towards a precise understanding the reasoning logic behind the repair process, thereby enabling them to generate high-quality patches.
 
-#### Catalogue of Repository
-```
-evalrepair-
-```
 
-#### Quick Starts
+#### Quick Start
 ```
 git clone https://github.com/fedebotu/clone-anonymous-github.git && cd clone-anonymous-github
 python3 src/download.py --url https://anonymous.4open.science/r/morepair-1024
