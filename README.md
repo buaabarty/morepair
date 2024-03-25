@@ -1,7 +1,7 @@
 # Multi-Objective Fine-Tuning for Enhanced Program Repair with LLMs
 
 ## MORepair
-MORepair, a novel **M**ulti-**O**bjective fine-tuning framework designed specifically for LLM-based program **Repair**. \tool steers LLMs towards a precise understanding the reasoning logic behind the repair process, thereby enabling them to generate high-quality patches.
+MORepair, a novel **M**ulti-**O**bjective fine-tuning framework designed specifically for LLM-based program **Repair**. MORepair steers LLMs towards a precise understanding the reasoning logic behind the repair process, thereby enabling them to generate high-quality patches.
 
 
 #### Quick Start
@@ -20,9 +20,7 @@ bash rq2.sh
 bash rq3.sh
 ```
 
-## I) Dataset
-
-## II) Requirements
+## I) Requirements
 
 ### A) Clone this Anonymous Repository
 ```
@@ -38,7 +36,7 @@ zstd -d evalrepair-cpp-res.zst -o evalrepair-cpp-res.tar && tar -xvf evalrepair-
 zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
 ```
 
-## III) Experiment
+## II) Experiment
 
 ### 2a) Recommend: Environment Preparation (Docker)
 Docker version: 20.10.17
@@ -100,9 +98,9 @@ bash rq3.sh
 bash rq3.sh rejudge
 ```
 
-### Optional: Fine-tune & Inference
+### III) Fine-tune & Inference
 
-It will take a long time. Suggest to run this command in background.
+It will take a long time. Suggest running this command in the background.
 
 ```
 python3 fetch_data.py
