@@ -8,6 +8,22 @@ MORepair ...
 evalrepair-
 ```
 
+#### Quick Starts
+```
+git clone https://github.com/fedebotu/clone-anonymous-github.git && cd clone-anonymous-github
+python3 src/download.py --url https://anonymous.4open.science/r/morepair-1024
+cd morepair-1024
+zstd -d evalrepair-java.zst -o evalrepair-java.tar && tar -xvf evalrepair-java.tar
+zstd -d evalrepair-cpp-res.zst -o evalrepair-cpp-res.tar && tar -xvf evalrepair-cpp-res.tar
+zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
+docker build -t morepair .
+docker run -it -v `pwd`/:/opt/morepair morepair
+cd /opt/morepair
+bash rq1.sh
+bash rq2.sh
+bash rq3.sh
+```
+
 ## I) Dataset
 
 ## II) Requirements
@@ -88,32 +104,13 @@ bash rq3.sh
 bash rq3.sh rejudge
 ```
 
-### Optional: Fine-tune
+### Optional: Fine-tune & Inference
+
+It will take a long time. Suggest to run this command in background.
 
 ```
-mkdir output_model || true  # create model output directory
-python3 MOTrain.py 1 # run the trainer, with the gamma value of 1
-```
-
-You can make MOTrain.py do single-objective fine-tuning by setting its first parameter to zero.
-
-The fine-tuned model is saved in the output_model directory and can be tested for inference by executing the following command.
-
-```
-python3 test.py
-```
-
-### Optional: Inference
-
-```
-mkdir output_model || true  # create model output directory
-python3 MOTrain.py 1 # run the trainer, with the gamma value of 1
-```
-
-You can make MOTrain.py do single-objective fine-tuning by setting its first parameter to zero.
-
-The fine-tuned model is saved in the output_model directory and can be tested for inference by executing the following command.
-
-```
-python3 test.py
+python3 fetch_data.py
+bash rq1.sh rejudge train
+bash rq2.sh rejudge train
+bash rq3.sh rejudge train
 ```

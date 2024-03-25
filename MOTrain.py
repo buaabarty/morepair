@@ -85,7 +85,7 @@ class TaskPrefixDataCollator(DataCollatorForLanguageModeling):
 class TaskPrefixTrainer(SFTTrainer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.weight_beta = float(sys.argv[1])
+        self.weight_beta = float(sys.argv[4])
 
     def compute_loss(self, model, inputs, return_outputs=False):
         print(inputs.keys())

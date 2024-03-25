@@ -14,7 +14,7 @@ def extract_first_cpp_code(s: str) -> str:
 BOF = '[INST]'
 EOF = '[/INST]'
 
-if sys.argv[1].startswith('codellama') or sys.argv[3].startswith('mistral'):
+if sys.argv[1].startswith('codellama') or sys.argv[1].startswith('mistral'):
     BOF = '[INST]'
     EOF = '[/INST]'
 elif sys.argv[1].startswith('starchat'):
@@ -33,10 +33,10 @@ elif sys.argv[1] == 'starchat-baseline':
 elif sys.argv[1] == 'mistral-baseline':
     model_path = 'Mistral-7B-Instruct-v0.1'
 else:
-    model_path = './model/' + sys.argv[1]
+    model_path = './models/' + sys.argv[1]
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
-model = AutoModelForCausalLM.from_pretrained(model_path, device_map="cuda:"+sys.argv[4], load_in_8bit=True)
+model = AutoModelForCausalLM.from_pretrained(model_path, device_map="cuda:0", load_in_8bit=True)
 pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
 print('load model success ..', flush=True)
@@ -50,7 +50,7 @@ def remove_comments_and_return_first_part(code):
     return input_content, code_without_comments
 
 def cal(code, filename):
-    prompt_suffix = open('/root/autodl-tmp/apr/humaneval-cpp/prompt/' + filename, 'r', encoding='utf-8').read()
+    prompt_suffix = open('data/evalrepair-c++/prompt/' + filename, 'r', encoding='utf-8').read()
     _, prompt_suffix = remove_comments_and_return_first_part(prompt_suffix)
     prompt = BOF + " This is an incorrect code (" + filename + "):\n```c++\n" + code + "\n```\nYou are a software engineer. Can you repair the incorrect code?\n" + EOF + "\n```c++\n" + prompt_suffix
     print(prompt, flush=True)
@@ -64,15 +64,13 @@ def cal(code, filename):
         print('code:', ret, flush=True)
         if ret.strip() != '':
             break
-        #if max_d > 500 - cnt:
-        #    return [None, None]
         max_d = min(3000 - cnt, max_d + 500)
     return [full_text, ret]
 
 
 
-base_dir = '/root/autodl-tmp/apr/humaneval-cpp/buggy/'
-fix_dir = '/root/autodl-tmp/humaneval-cpp/' + sys.argv[3] + '/fixed'
+base_dir = 'data/evalrepair-c++/buggy/'
+fix_dir = 'evalrepair-cpp-res/' + sys.argv[1] + '/fixed'
 
 cnt = 0
 
@@ -87,20 +85,10 @@ for file_path in sorted(Path(base_dir).rglob('*.cpp'), reverse=True):
 
     print(content)
 
-    for e in range(int(sys.argv[-1])):
-        cnt += 1
-        if cnt % int(sys.argv[1]) != int(sys.argv[2]):
-            continue
-        # 获取文件名
+    for e in range(10):
         file_name = os.path.basename(full_path)
         fix_name = os.path.join(fix_dir + str(e) + '/', file_name)
         print(fix_name, flush=True)
-        if os.path.exists(fix_name) and os.path.exists(fix_name + '.log'):
-            print('result exists ...')
-            continue
-        #cnt += 1
-        #if cnt % int(sys.argv[1]) != int(sys.argv[2]):
-        #    continue
         full, res = cal(content, file_name)
         if full == None:
             continue
