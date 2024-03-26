@@ -55,7 +55,6 @@ if __name__ == "__main__":
                 create_file(base_path, 'diff', name, item['diff'])
             else:
                 print(f"Failed to get data for {name}")
-    sys.exit(0)
     os.makedirs('data/trainset', exist_ok=True)
     save_content('data/trainset/llama_llm.json', get_tutorcodeplus("llama", "llm"))
     save_content('data/trainset/llama_human.json', get_tutorcodeplus("llama", "human"))

@@ -1,36 +1,5 @@
 rm tmp/* || mkdir tmp
 rm logs/* || mkdir logs
-if [ "$2" = "train" ]; then
-    mkdir models || true
-    python3 MOTrain.py CodeLlama-13b-Instruct-hf data/trainset/llama_cot.json models/codellama13b-cot 0
-    python3 MOTrain.py CodeLlama-13b-Instruct-hf data/trainset/llama_human.json models/codellama13b-cot 1
-    python3 MOTrain.py CodeLlama-7b-Instruct-hf data/trainset/llama_cot.json models/codellama7b-cot 0
-    python3 MOTrain.py CodeLlama-7b-Instruct-hf data/trainset/llama_human.json models/codellama7b-cot 1
-    python3 MOTrain.py starchat-alpha data/trainset/llama_cot.json models/starchat-cot 0
-    python3 MOTrain.py starchat-alpha data/trainset/llama_human.json models/starchat-cot 1
-    python3 MOTrain.py Mistral-7B-Instruct-v0.1 data/trainset/llama_cot.json models/mistral-cot 0
-    python3 MOTrain.py Mistral-7B-Instruct-v0.1 data/trainset/llama_human.json models/mistral-cot 1
-    
-    python3 inference_cpp.py codellama13b-cot
-    python3 inference_cpp.py codellama13b-human
-    python3 inference_java.py codellama13b-cot
-    python3 inference_java.py codellama13b-human
-    python3 inference_cpp.py codellama7b-cot
-    python3 inference_cpp.py codellama7b-human
-    python3 inference_java.py codellama7b-cot
-    python3 inference_java.py codellama7b-human
-    python3 inference_cpp.py starchat-cot
-    python3 inference_cpp.py starchat-human
-    python3 inference_java.py starchat-cot
-    python3 inference_java.py starchat-human
-    python3 inference_cpp.py mistral-cot
-    python3 inference_cpp.py mistral-human
-    python3 inference_java.py mistral-cot
-    python3 inference_java.py mistral-human
-    
-    git clone git@github.com:ASSERT-KTH/repairllama.git
-    python3 inference_repairllama_cpp.py
-fi
 python3 calc_cpp.py codellama13b-cot $1 > logs/cpp-codellama13b-cot.log
 python3 calc_cpp.py codellama13b-human $1 > logs/cpp-codellama13b-human.log
 python3 calc_java.py codellama13b-cot $1 > logs/java-codellama13b-cot.log

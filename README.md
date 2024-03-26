@@ -100,11 +100,42 @@ bash rq3.sh rejudge
 
 ### III) Fine-tune & Inference
 
-It will take a long time. Suggest running this command in the background.
+It will take a long time. Suggest running this command in the background. You can fine-tune a specific model and re-generate the results by executing the following commands.
 
 ```
+# you should run this command at first, only once
 python3 fetch_data.py
-bash rq1.sh rejudge train
-bash rq2.sh rejudge train
-bash rq3.sh rejudge train
+
+# fine-tune and inference
+bash finetune_and_eval.sh CodeLlama-13b-Instruct-hf llama_llm codellama13b-stdft 0
+```
+
+Parameters are configured as follows:
+
+| Model (`$3`) | Base Model (`$1`) | Dataset (`$2`) | Lambda (`$4`) |
+|-|-|-|-|
+| codellama13b-stdft | CodeLlama-13b-Instruct-hf | llama_llm | 0 |
+| codellama13b-morepair | CodeLlama-13b-Instruct-hf | llama_llm | 1 |
+| codellama13b-cot | CodeLlama-13b-Instruct-hf | llama_cot | 0 |
+| codellama13b-human | CodeLlama-13b-Instruct-hf | llama_human | 1 |
+|||||
+| codellama7b-stdft | CodeLlama-7b-Instruct-hf | llama_llm | 0 |
+| codellama7b-morepair | CodeLlama-7b-Instruct-hf | llama_llm | 1 |
+| codellama7b-cot | CodeLlama-7b-Instruct-hf | llama_cot | 0 |
+| codellama7b-human | CodeLlama-7b-Instruct-hf | llama_human | 1 |
+|||||
+| starchat-stdft | starchat-alpha | starchat_llm | 0 |
+| starchat-morepair | starchat-alpha | starchat_llm | 1 |
+| starchat-cot | starchat-alpha | starchat_cot | 0 |
+| starchat-human | starchat-alpha | starchat_human | 1 |
+|||||
+| mistral-stdft | Mistral-7B-Instruct-v0.1 | llama_llm | 0 |
+| mistral-morepair | Mistral-7B-Instruct-v0.1 | llama_llm | 1 |
+| mistral-cot | Mistral-7B-Instruct-v0.1 | llama_cot | 0 |
+| mistral-human | Mistral-7B-Instruct-v0.1 | llama_human | 1 |
+
+If you want to reproduce the results of RepairLLaMA, you can run the following command.
+
+```
+bash repairllama.sh
 ```
