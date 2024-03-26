@@ -9,12 +9,17 @@ MORepair, a novel **M**ulti-**O**bjective fine-tuning framework designed specifi
 git clone https://github.com/fedebotu/clone-anonymous-github.git && cd clone-anonymous-github
 python3 src/download.py --url https://anonymous.4open.science/r/morepair-1024
 cd morepair-1024
+apt install docker.io zstd
 zstd -d evalrepair-java.zst -o evalrepair-java.tar && tar -xvf evalrepair-java.tar
 zstd -d evalrepair-cpp-res.zst -o evalrepair-cpp-res.tar && tar -xvf evalrepair-cpp-res.tar
-zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
+cat evalrepair-java-res.zst.part-* > evalrepair-java-res.zst && zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
 docker build -t morepair .
 docker run -it -v `pwd`/:/opt/morepair morepair
 cd /opt/morepair
+```
+
+After all, run the following command within docker:
+```
 bash rq1.sh
 bash rq2.sh
 bash rq3.sh
