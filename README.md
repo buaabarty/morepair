@@ -112,7 +112,7 @@ It will take a long time. Suggest running this command in the background. You ca
 python3 fetch_data.py
 
 # fine-tune and inference
-bash finetune_and_eval.sh CodeLlama-13b-Instruct-hf llama_llm codellama13b-stdft 0
+bash finetune_and_inference.sh CodeLlama-13b-Instruct-hf llama_llm codellama13b-stdft 0
 ```
 
 Parameters are configured as follows:
@@ -144,3 +144,5 @@ If you want to reproduce the results of RepairLLaMA, you can run the following c
 ```
 bash repairllama.sh
 ```
+
+After inference, you can follow the steps in the `rq1.sh`, `rq2.sh`, and `rq3.sh` files to generate the evaluation results.
