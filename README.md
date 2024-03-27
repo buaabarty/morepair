@@ -41,10 +41,10 @@ zstd -d evalrepair-cpp-res.zst -o evalrepair-cpp-res.tar && tar -xvf evalrepair-
 cat evalrepair-java-res.zst.part-* > evalrepair-java-res.zst && zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
 ```
 
-## II) Experiment
+### C) Environment Preparation
+You should build the evaluation environment through docker, and then evaluate experimental results within the docker image.
 
-### 2a) Recommend: Environment Preparation (Docker)
-Docker version: 20.10.17
+- Docker version: 20.10.17
 
 ```
 docker build -t morepair .
@@ -52,31 +52,7 @@ docker run -it -v `pwd`/:/opt/morepair morepair
 cd /opt/morepair
 ```
 
-### 2b) Optional: Environment Preparation (Local)
-Recommend System: Ubuntu 20.04
-
-Java version: **11.0.21**
-
-Python version: 3.10.11
-
-CUDA Version: **12.0**
-
-1. install libboost, maven, zstd, openssl, and javac11.0.21
-```
-apt install libboost-all-dev maven openjdk-11-jdk zstd libssl-dev
-```
-
-2. install tiktoken difflib
-```
-pip3 install tokenizers==0.15.0
-```
-
-(Optional) If you want to train the model, you need to install the following python packages.
-```
-pip3 install torch==2.0.1+cu117 transformers==4.36.2 wandb==0.16.0 peft==0.6.1 trl==0.7.4 numpy==1.24.2
-```
-
-## Evaluation
+## II) Experiments
 Evaluation should be run in the docker container described above.
 
 ### RQ-1) Effectiveness of Multi-objective Fine-tuning for Program Repair
@@ -103,7 +79,20 @@ bash rq3.sh
 bash rq3.sh rejudge
 ```
 
-### III) Fine-tune & Inference
+## III) Fine-tune & Inference
+
+### Environment Preparation for Fine-tuning
+- Recommend System: Ubuntu 20.04
+- Python version: 3.10.11
+- CUDA Version: **12.0**
+
+Install the following python library.
+
+```
+pip3 install torch==2.0.1+cu117 transformers==4.36.2 wandb==0.16.0 peft==0.6.1 trl==0.7.4 numpy==1.24.2
+```
+
+### Regenerate Experimental Results
 
 It will take a long time. Suggest running this command in the background. You can fine-tune a specific model and re-generate the results by executing the following commands.
 
@@ -145,4 +134,4 @@ If you want to reproduce the results of RepairLLaMA, you can run the following c
 bash repairllama.sh
 ```
 
-After inference, you can follow the steps in the `rq1.sh`, `rq2.sh`, and `rq3.sh` files to generate the evaluation results.
+After re-inference, you can follow the steps in the `rq1.sh`, `rq2.sh`, and `rq3.sh` files to generate the evaluation results.
