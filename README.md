@@ -138,3 +138,16 @@ bash repairllama.sh
 ```
 
 After re-inference, you can follow the steps in the `rq1.sh`, `rq2.sh`, and `rq3.sh` files to generate the evaluation results.
+
+# Tutorial to Train Your Own Multi-Objective Fine-Tuning Model
+1. Prepare the dataset
+
+The dataset used for fine-tuning should follow the format just like `data/trainset/*.json`. The dataset should be a list of dictionaries, where each dictionary contains only one key `text`, and the value is concat by two parts of inputs, split by eos_token, such as `</s>` for Llama, and should also end by eos_token, too.
+
+2. Fine-tune the model
+
+To conduct multi-objective fine-tuning, the `MOTrain.py` script requires the provision of three parameters. These are the name of the base model, the file location of the dataset, and the directory for saving the fine-tuned model. Please note, that the script is designed to store the trained model within a specified subdirectory of the `./models` directory.
+
+3. Inference the model
+
+When deploying the fine-tuned model for inference tasks, it is straightforward to utilize the model files found in the `./codellama_merged` subdirectory, which is nested within the relevant `./models` subdirectory. These model files can be freely copied for any intended use. For guidance on the inference process, you can refer to the methodology outlined in the `inference_cpp.py` script. It is advisable to employ 8-bit quantization to optimize the use of computational resources during inference.
