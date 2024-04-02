@@ -139,10 +139,10 @@ bash repairllama.sh
 
 After re-inference, you can follow the steps in the `rq1.sh`, `rq2.sh`, and `rq3.sh` files to generate the evaluation results.
 
-# Tutorial to Train Your Own Multi-Objective Fine-Tuning Model
+## Tutorial to Train Your Own Multi-Objective Fine-Tuning Model
 1. Prepare the dataset
 
-The dataset used for fine-tuning should follow the format just like `data/trainset/*.json`. The dataset should be a list of dictionaries, where each dictionary contains only one key `text`, and the value is concat by two parts of inputs, split by eos_token, such as `</s>` for Llama, and should also end by eos_token, too.
+The dataset designated for fine-tuning needs to be formatted similarly to `data/trainset/*.json`, comprising a list of dictionaries. Each dictionary should have a solitary key, `text`, whose value is the amalgamation of three parts: the input, the output for the first objective, and the output for the second objective. These parts are separated by an end-of-sentence (EOS) token, such as `</s>` for Llama, and the entire value should also terminate with an EOS token. When employing a model that has undergone instruction-based fine-tuning as the base model, it is recommended to present the input data in the established instruction format. This approach aids in achieving superior fine-tuning outcomes.
 
 2. Fine-tune the model
 
