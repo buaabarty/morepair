@@ -6,9 +6,8 @@ from transformers import pipeline
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoTokenizer
 
 def extract_first_java_code(s: str) -> str:
-    # 寻找所有匹配的代码块
     matches = re.findall(r'```java(.*?)```', s, re.DOTALL)
-    # 返回最后一个匹配的代码块，如果没有找到匹配的代码块则返
+    return matches[0].strip() if matches else ""
 
 BOF = '[INST]'
 EOF = '[/INST]'
@@ -62,11 +61,9 @@ fix_dir = 'evalrepair-java-res/' + sys.argv[1] + '/fixed'
 cnt = 0
 
 for file_path in sorted(Path(base_dir).rglob('*.java'), reverse=True):
-    # 获取文件的完整路径
     full_path = str(file_path)
     print(full_path, flush=True)
 
-    # 读取文件内容
     with open(full_path, 'r') as file:
         content = file.read()
 

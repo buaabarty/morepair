@@ -6,9 +6,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, AutoTokenizer
 import re
 
 def extract_first_cpp_code(s: str) -> str:
-    # 寻找所有匹配的代码块
     matches = re.findall(r'```c\+\+(.*?)```', s, re.DOTALL)
-    # 返回最后一个匹配的代码块，如果没有找到匹配的代码块则返回空字符串
     return matches[0].strip() if matches else ""
 
 BOF = '[INST]'
@@ -75,11 +73,9 @@ fix_dir = 'evalrepair-cpp-res/' + sys.argv[1] + '/fixed'
 cnt = 0
 
 for file_path in sorted(Path(base_dir).rglob('*.cpp'), reverse=True):
-    # 获取文件的完整路径
     full_path = str(file_path)
     print(full_path, flush=True)
 
-    # 读取文件内容
     with open(full_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
