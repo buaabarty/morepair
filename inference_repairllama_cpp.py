@@ -86,7 +86,6 @@ fix_dir = 'evalrepair-cpp-res/repairllama/fixed'
 cnt = 0
 
 for file_path in sorted(Path(base_dir).rglob('*.cpp'), reverse=False):
-    # 获取文件的完整路径
     full_path = str(file_path)
     file_name = os.path.basename(full_path)
     print(full_path, flush=True)
@@ -95,7 +94,6 @@ for file_path in sorted(Path(base_dir).rglob('*.cpp'), reverse=False):
     ret = calc(content)
 
     for e in range(10):
-        # 获取文件名
         fix_name = os.path.join(fix_dir + str(e) + '/', file_name)
         print(fix_name, flush=True)
         with open(fix_name, 'w', encoding='utf-8') as file:
