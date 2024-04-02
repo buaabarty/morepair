@@ -144,10 +144,10 @@ After re-inference, you can follow the steps in the `rq1.sh`, `rq2.sh`, and `rq3
 
 The dataset designated for fine-tuning needs to be formatted similarly to `data/trainset/*.json`, comprising a list of dictionaries. Each dictionary should have a solitary key, `text`, whose value is the amalgamation of three parts: the input, the output for the first objective, and the output for the second objective. These parts are separated by an end-of-sentence (EOS) token, such as `</s>` for Llama, and the entire value should also terminate with an EOS token. When employing a model that has undergone instruction-based fine-tuning as the base model, it is recommended to present the input data in the established instruction format. This approach aids in achieving superior fine-tuning outcomes.
 
-2. Fine-tune the model
+2. Fine-tuning
 
 To conduct multi-objective fine-tuning, the `MOTrain.py` script requires the provision of three parameters. These are the name of the base model, the file location of the dataset, and the directory for saving the fine-tuned model. Please note, that the script is designed to store the trained model within a specified subdirectory of the `./models` directory.
 
-3. Inference the model
+3. Inference
 
 When deploying the fine-tuned model for inference tasks, it is straightforward to utilize the model files found in the `./codellama_merged` subdirectory, which is nested within the relevant `./models` subdirectory. These model files can be freely copied for any intended use. For guidance on the inference process, you can refer to the methodology outlined in the `inference_cpp.py` script. It is advisable to employ 8-bit quantization to optimize the use of computational resources during inference.
