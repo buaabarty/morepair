@@ -100,6 +100,9 @@ It will take a long time. Suggest running this command in the background. You ca
 # you should run this command at first, only once
 python3 fetch_data.py
 
+# download evalrepair-java dataset
+zstd -d evalrepair-java.zst -o evalrepair-java.tar && tar -xvf evalrepair-java.tar
+
 # fine-tune and inference
 bash finetune_and_inference.sh CodeLlama-13b-Instruct-hf llama_llm codellama13b-stdft 0
 ```

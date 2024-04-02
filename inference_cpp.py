@@ -33,7 +33,7 @@ elif sys.argv[1] == 'starchat-baseline':
 elif sys.argv[1] == 'mistral-baseline':
     model_path = 'Mistral-7B-Instruct-v0.1'
 else:
-    model_path = './models/' + sys.argv[1]
+    model_path = './models/' + sys.argv[1] + '/codellama_merged'
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForCausalLM.from_pretrained(model_path, device_map="cuda:0", load_in_8bit=True)
