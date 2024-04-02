@@ -139,6 +139,12 @@ bash repairllama.sh
 
 After re-inference, you can follow the steps in the `rq1.sh`, `rq2.sh`, and `rq3.sh` files to generate the evaluation results.
 
+```
+bash rq1.sh rejudge
+bash rq2.sh rejudge
+bash rq3.sh rejudge
+```
+
 ## Tutorial to Train Your Own Multi-Objective Fine-Tuning Model
 1. Prepare the dataset
 
