@@ -25,6 +25,15 @@ bash rq2.sh
 bash rq3.sh
 ```
 
+#### TutorLLMCode
+
+You can run this command to download all the datasets of TutorLLMCode:
+```
+python3 fetch_data.py
+```
+
+After that, you can see the characteristics and format of the data by looking at `data/trainset/llama_llm.json` and `data/trainset/llama_human.json`.
+
 ## I) Requirements
 
 ### A) Clone this Anonymous Repository
