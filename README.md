@@ -38,6 +38,9 @@ After that, you can see the characteristics and format of the data by looking at
 
 Within the description of [TutorLLMCode](https://anonymous.4open.science/r/morepair-1024/TutorLLMCode.md), you can view detailed information on the characteristics and format of TutorLLMCode.
 
+#### EvalRepair-C++ and EvalRepair-Java
+We constructed EvalRepair-C++ based on the code generation benchmark HumanEval-C++ in combination with the test data in EvalPlus, and manually set the equivalent bugs for each code reference HumanEval-Java. At the same time, we constructed EvalRepair-Java based on the program repair benchmark HumanEval-Java and the test data in EvalPlus. Due to we constructed bugs similar to EvalRepair in EvalRepair-C++ for the same code, the repair performance on the two constructed benchmarks is somewhat comparable.
+
 ## I. Requirements
 
 ### A. Clone this Anonymous Repository
