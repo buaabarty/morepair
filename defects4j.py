@@ -31,12 +31,6 @@ def cal(bug_id, code, title, description, filename):
     prompt = BOF + "\n# " + title + '\n' + description + '\n' + "This is an incorrect code (" + filename + "):\n```java\n" + code + "\n```\nYou are a software engineer. Can you repair the incorrect code?\n" + EOF + "\n```java\n"
     print(prompt, flush=True)
     cnt = len(tokenizer.tokenize(prompt))
-    if cnt >= 1000:
-        print('prompt too long', bug_id, flush=True)
-        # 删除 dataset/bug_id.json
-        if os.path.exists('/root/autodl-tmp/apr/defects4j/dataset/' + bug_id + '.json'):
-            os.remove('/root/autodl-tmp/apr/defects4j/dataset/' + bug_id + '.json')
-        return [None, None]
     max_d = cnt
     while True:
         output = pipe(prompt, min_length=cnt+64, max_length=cnt+max_d, temperature=1.0, do_sample=True)

@@ -31,8 +31,6 @@ def cal(bug_id, code, title, description, filename):
     prompt = BOF + "\n# " + title + '\n' + description + '\n' + "This is an incorrect code (" + filename + "):\n```python\n" + code + "\n```\nYou are a software engineer. Can you repair the incorrect code without modifying any code indentations?\n" + EOF + "\n```python\n"
     print(prompt, flush=True)
     cnt = len(tokenizer.tokenize(prompt))
-    if cnt > 1000:
-        return [None, None]
     max_d = cnt
     retry_cnt = 0
     while True:
@@ -41,7 +39,6 @@ def cal(bug_id, code, title, description, filename):
         print(full_text)
         ret = extract_first_python_code(full_text.split(EOF)[1])
         print('code:', ret, flush=True)
-        #if max_d > 500 - cnt:
         if retry_cnt > 0:
             break
         retry_cnt += 1
