@@ -16,6 +16,7 @@ def test(id, name, tag):
     return [process.returncode, str(stdout) + str(stderr)]
 
 cnt = {}
+ac1 = {}
 ac = {}
 ac5 = {}
 bug = 0
@@ -35,5 +36,7 @@ for id in range(10):
                 ac[name] = ac.get(name, 0) + 1
                 if id < 5:
                     ac5[name] = ac5.get(name, 0) + 1
+                if id == 0:
+                    ac1[name] = ac1.get(name, 0) + 1
 
-print('TOP-10:', len(ac) / 164 * 100, 'TOP-5:', len(ac5) / 164 * 100)
+print('TOP-10:', len(ac) / 164 * 100, 'TOP-5:', len(ac5) / 164 * 100, 'TOP-1:', len(ac1) / 164 * 100)
