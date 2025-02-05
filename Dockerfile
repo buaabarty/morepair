@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt install -y libssl-dev
 
 RUN pip3 install tokenizers==0.15.0
+RUN pip3 install swebench
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
