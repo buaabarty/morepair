@@ -10,7 +10,9 @@ cd morepair-1024
 apt install docker.io zstd
 zstd -d evalrepair-java.zst -o evalrepair-java.tar && tar -xvf evalrepair-java.tar
 zstd -d evalrepair-cpp-res.zst -o evalrepair-cpp-res.tar && tar -xvf evalrepair-cpp-res.tar
-cat evalrepair-java-res.zst.part-* > evalrepair-java-res.zst && zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
+zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
+zstd -d defects4j.tar.zst -o defects4j.tar && tar -xvf defects4j.tar
+zstd -d swebench.tar.zst -o swebench.tar && tar -xvf swebench.tar
 docker build -t morepair .
 docker run -it -v `pwd`/:/opt/morepair morepair
 cd /opt/morepair
