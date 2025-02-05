@@ -23,6 +23,7 @@ After all, run the following command within docker:
 bash rq1.sh
 bash rq2.sh
 bash rq3.sh
+bash rq4.sh
 ```
 
 #### TutorLLMCode
@@ -86,6 +87,11 @@ bash rq2.sh rejudge
 bash rq3.sh
 # or run the following command to rejudge all the results
 bash rq3.sh rejudge
+```
+
+### RQ-4. Evaluating the Effectiveness of MORepair on Repository-Level Benchmarks
+```
+bash rq4.sh # this also can rejudge all the results if not exist
 ```
 
 ## III. Fine-tune & Inference

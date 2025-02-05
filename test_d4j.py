@@ -243,7 +243,7 @@ class ValInfo():
         with open(config_path, 'r') as f:
             config_info = json.load(f)
 
-        self.val_result_path = os.path.join('results/', config_info['model_id'])
+        self.val_result_path = os.path.join('defects4j/results/', config_info['model_id'])
         checkout_defects4j_project(self.curr_bug, self.proj_dir)
 
     def init_extract_project_info(self):
@@ -651,13 +651,13 @@ class ValidationStats:
 
 def load_previous_results(model_id):
     """加载之前验证过的结果"""
-    results_dir = f'results/{model_id}'
+    results_dir = f'defects4j/results/{model_id}'
     previous_results = {}
     
     # 加载时间信息
     bug_dates = {}
     try:
-        with open('time.jsonl', 'r') as f:
+        with open('defects4j/time.jsonl', 'r') as f:
             for line in f:
                 data = json.loads(line)
                 bug_id, date = list(data.items())[0]
