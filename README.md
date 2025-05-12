@@ -1,174 +1,137 @@
-# Multi-Objective Fine-Tuning for Enhanced Program Repair with LLMs
+# MORepair: Enhancing Program Repair with LLMs via Multi-Objective Fine-Tuning
 
-## MORepair
-MORepair, a novel **M**ulti-**O**bjective fine-tuning framework designed specifically for LLM-based program **Repair**. MORepair steers LLMs towards a precise understanding the reasoning logic behind the repair process, thereby enabling them to generate high-quality patches.
+<p align="center">
+  <a href="https://doi.org/10.1145/3735129"><img src="https://img.shields.io/badge/DOI-10.1145/3735129-blue.svg" alt="Paper DOI"></a>
+  <a href="https://colab.research.google.com/drive/1vlabdN5Oucm-5kVtMHuEw-kvqDOtB5hg"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+  <a href="LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/Python-3.10+-blue.svg" alt="Python 3.10+">
+  <img src="https://img.shields.io/badge/PyTorch-2.0.1+-orange.svg" alt="PyTorch 2.0.1+">
+</p>
 
+## Cite Our Work
 
-#### Quick Start
+If you use MORepair in your research, please cite our paper:
+
+```bibtex
+@article{10.1145/3735129,
+author = {Yang, Boyang and Tian, Haoye and Ren, Jiadong and Zhang, Hongyu and Klein, Jacques and Bissyande, Tegawende and Le Goues, Claire and Jin, Shunfu},
+title = {MORepair: Teaching LLMs to Repair Code via Multi-Objective Fine-Tuning},
+year = {2025},
+publisher = {Association for Computing Machinery},
+issn = {1049-331X},
+url = {https://doi.org/10.1145/3735129},
+doi = {10.1145/3735129},
+journal = {ACM Trans. Softw. Eng. Methodol.},
+}
 ```
-cd morepair-1024
-apt install docker.io zstd
-zstd -d evalrepair-java.zst -o evalrepair-java.tar && tar -xvf evalrepair-java.tar
-zstd -d evalrepair-cpp-res.zst -o evalrepair-cpp-res.tar && tar -xvf evalrepair-cpp-res.tar
-zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
-zstd -d defects4j.tar.zst -o defects4j.tar && tar -xvf defects4j.tar
-zstd -d swebench.tar.zst -o swebench.tar && tar -xvf swebench.tar
-docker build -t morepair .
-docker run -it -v `pwd`/:/opt/morepair morepair
-cd /opt/morepair
-```
 
-After all, run the following command within docker:
-```
-bash rq1.sh
-bash rq2.sh
-bash rq3.sh
-bash rq4.sh
-```
+## Colab Demo
 
-#### TutorLLMCode
+Explore MORepair with our Colab Notebook:
+[MORepair Demo](https://colab.research.google.com/drive/1vlabdN5Oucm-5kVtMHuEw-kvqDOtB5hg)
 
-You can run this command to download all the datasets of TutorLLMCode:
-```
+## MORepair Framework Overview
+
+MORepair is a novel **M**ulti-**O**bjective fine-tuning framework designed specifically for LLM-based program **Repair**. It steers LLMs toward a precise understanding of the reasoning logic behind the repair process, thereby enabling them to generate high-quality patches.
+
+## Key Features
+
+*   🚀 **Multi-Objective Fine-Tuning:** A novel approach for significantly enhanced code repair capabilities.
+*   🧠 **Improved Reasoning Logic:** Guides LLMs to deeply understand the "why" behind code fixes, not just the "what."
+*   🛠️ **High-Quality Patch Generation:** Empowers LLMs to produce more accurate and reliable code patches.
+*   📄 **Instruction-Following Enhancement:** Particularly effective with instruction-tuned base models.
+*   🐳 **Dockerized & Reproducible:** Easy setup with Docker ensures consistent environments for research and development.
+*   🧩 **Extensible & Adaptable:** Designed to be flexible for various models and custom datasets.
+
+## Quick Start & Environment Setup
+
+Get up and running with MORepair using Docker.
+
+1.  **Prerequisites:**
+    *   `docker.io`
+    *   `zstd` (for decompressing datasets, if you plan to use the provided ones)
+
+2.  **Build the Docker Image:**
+    Clone this repository, then navigate to its root directory and run:
+    ```bash
+    docker build -t morepair .
+    ```
+
+3.  **Run the Docker Container:**
+    ```bash
+    # Mount your local MORepair repository (replace /path/to/your/local/morepair with the actual path)
+    docker run -it -v /path/to/your/local/morepair:/opt/morepair morepair
+    cd /opt/morepair
+    ```
+    *Tip: On Linux/macOS, use `$(pwd)` for the current path: `docker run -it -v $(pwd):/opt/morepair morepair`*
+
+## Using MORepair
+
+Follow these steps to leverage MORepair for your program repair tasks.
+
+### 1. Prepare Your Custom Dataset
+
+Your fine-tuning dataset should be a JSON file containing a list of dictionaries. Each dictionary must have a single key, `text`, whose value is a string formed by concatenating:
+    1.  The input (e.g., buggy code with instructions)
+    2.  The output for the first objective (e.g., the rationale or thought process)
+    3.  The output for the second objective (e.g., the corrected code)
+
+These three parts must be separated by an End-Of-Sentence (EOS) token (e.g., `</s>` for Llama). The entire `text` value must also end with an EOS token. For instruction-tuned base models, formatting the input as per the model's instruction template is highly recommended for optimal performance.
+
+Refer to `data/trainset/llama_llm.json` for an example and [TutorLLMCode.md](TutorLLMCode.md) for details on the TutorLLMCode dataset structure.
+
+**(Optional) Download Preprocessed TutorLLMCode Datasets:**
+Within the Docker container, run:
+```bash
 python3 fetch_data.py
 ```
+This script downloads `llama_human.json` (human-generated rationales) and `llama_llm.json` (GPT-4 generated rationales) for single-file C++ buggy programs.
 
-After that, you can see the characteristics and format of the data by looking at `data/trainset/llama_llm.json` and `data/trainset/llama_human.json`. All the buggy codes within TutorLLMCode are **single-file C++** codes.
+### 2. Perform Multi-Objective Fine-tuning
 
-`llama_human.json` contains the rationale generated by humans for the repair of buggy code, while `llama_llm.json` contains the rationale generated by GPT-4 for the repair of buggy code.
+Use the `MOTrain.py` script for fine-tuning. Key arguments include:
+    *   `--base_model_name_or_path`: Name or path of your base LLM.
+    *   `--dataset_path`: Path to your prepared JSON dataset.
+    *   `--output_model_dir_name`: Subdirectory name under `./models` to save the fine-tuned model.
 
-Within the description of [TutorLLMCode](TutorLLMCode.md), you can view detailed information on the characteristics and format of TutorLLMCode.
-
-#### EvalRepair-C++ and EvalRepair-Java
-We constructed EvalRepair-C++ based on the code generation benchmark HumanEval-C++ in combination with the test data in EvalPlus, and manually set the equivalent bugs for each code reference HumanEval-Java. At the same time, we constructed EvalRepair-Java based on the program repair benchmark HumanEval-Java and the test data in EvalPlus. Due to we constructed bugs similar to EvalRepair in EvalRepair-C++ for the same code, the repair performance on the two constructed benchmarks is somewhat comparable.
-
-## I. Requirements
-
-### A. Unarchive Datasets
-```
-zstd -d evalrepair-java.zst -o evalrepair-java.tar && tar -xvf evalrepair-java.tar
-zstd -d evalrepair-cpp-res.zst -o evalrepair-cpp-res.tar && tar -xvf evalrepair-cpp-res.tar
-cat evalrepair-java-res.zst.part-* > evalrepair-java-res.zst && zstd -d evalrepair-java-res.zst -o evalrepair-java-res.tar && tar -xvf evalrepair-java-res.tar
+**Example (inside Docker):**
+```bash
+python3 MOTrain.py \\
+    --base_model_name_or_path CodeLlama-7b-Instruct-hf \\
+    --dataset_path data/trainset/llama_llm.json \\
+    --output_model_dir_name my_custom_codellama7b
 ```
 
-### B. Environment Preparation
-You should build the evaluation environment through docker, and then evaluate experimental results within the docker image.
+### 3. Model Inference
 
-- Docker version: 20.10.17
+The fine-tuned model (LoRA adapters and potentially merged model) will be saved in `./models/<your_output_model_dir_name>`. For inference, use the model files from the `./codellama_merged` (or similarly named) subdirectory.
 
-```
-docker build -t morepair .
-docker run -it -v `pwd`/:/opt/morepair morepair
-cd /opt/morepair
-```
+The `inference_cpp.py` script provides an example of an inference pipeline. Using 8-bit quantization is recommended to optimize resource usage.
 
-## II. Experiments
-Evaluation should be run in the docker container described above.
+## Datasets Overview
 
-### RQ-1. Effectiveness of Multi-objective Fine-tuning for Program Repair
+*   **TutorLLMCode**: C++ dataset with code repair rationales. See [TutorLLMCode.md](TutorLLMCode.md).
+*   **EvalRepair-C++ & EvalRepair-Java**: Benchmarks for evaluating program repair performance, derived from HumanEval.
 
-```
-bash rq1.sh
-# or run the following command to rejudge all the results
-bash rq1.sh rejudge
-```
+## (Optional) Reproducing Paper Results
 
-### RQ-2. Impact of Size or Type for Fine-tuning LLMs on Code Repair Performance
+For those interested in replicating the results from our paper:
 
-```
-bash rq2.sh
-# or run the following command to rejudge all the results
-bash rq2.sh rejudge
-```
+1.  **Full Dataset Download & Setup:**
+    Refer to our paper or earlier `README.md` versions for detailed instructions on acquiring and preparing datasets like the full EvalRepair series, Defects4J, and SWE-bench (often involving `*.zst` decompression).
+    Example (inside Docker):
+    ```bash
+    # zstd -d evalrepair-java.zst -o evalrepair-java.tar && tar -xvf evalrepair-java.tar
+    ```
 
-### RQ-3. Evaluating the Impact of Guidance Sources and Comparing MOREPAIR against State-of-the-Art Fine-tuning Methods
+2.  **Execution Scripts:**
+    Use the provided `rqN.sh` scripts (e.g., `rq1.sh`, `rq2.sh`) within the Docker container. These scripts typically include re-judging options.
 
-```
-bash rq3.sh
-# or run the following command to rejudge all the results
-bash rq3.sh rejudge
-```
-
-### RQ-4. Evaluating the Effectiveness of MORepair on Repository-Level Benchmarks
-```
-bash rq4.sh # this also can rejudge all the results if not exist
-```
-
-## III. Fine-tune & Inference
-
-### Environment Preparation for Fine-tuning
-- Recommend System: Ubuntu 20.04
-- Python version: 3.10.11
-- CUDA Version: **12.0**
-
-Install the following python library.
-
-```
-pip3 install torch==2.0.1+cu117 transformers==4.36.2 wandb==0.16.0 peft==0.6.1 trl==0.7.4 numpy==1.24.2
-```
-
-### Regenerate Experimental Results
-
-It will take a long time. Suggest running this command in the background. You can fine-tune a specific model and re-generate the results by executing the following commands.
-
-```
-# you should run this command at first, only once
-python3 fetch_data.py
-
-# download evalrepair-java dataset
-zstd -d evalrepair-java.zst -o evalrepair-java.tar && tar -xvf evalrepair-java.tar
-
-# fine-tune and inference
-bash finetune_and_inference.sh CodeLlama-13b-Instruct-hf llama_llm codellama13b-stdft 0
-```
-
-Parameters are configured as follows:
-
-| Model (`$3`) | Base Model (`$1`) | Dataset (`$2`) | Lambda (`$4`) |
-|-|-|-|-|
-| codellama13b-stdft | CodeLlama-13b-Instruct-hf | llama_llm | 0 |
-| codellama13b-morepair | CodeLlama-13b-Instruct-hf | llama_llm | 1 |
-| codellama13b-cot | CodeLlama-13b-Instruct-hf | llama_cot | 0 |
-| codellama13b-human | CodeLlama-13b-Instruct-hf | llama_human | 1 |
-|||||
-| codellama7b-stdft | CodeLlama-7b-Instruct-hf | llama_llm | 0 |
-| codellama7b-morepair | CodeLlama-7b-Instruct-hf | llama_llm | 1 |
-| codellama7b-cot | CodeLlama-7b-Instruct-hf | llama_cot | 0 |
-| codellama7b-human | CodeLlama-7b-Instruct-hf | llama_human | 1 |
-|||||
-| starchat-stdft | starchat-alpha | starchat_llm | 0 |
-| starchat-morepair | starchat-alpha | starchat_llm | 1 |
-| starchat-cot | starchat-alpha | starchat_cot | 0 |
-| starchat-human | starchat-alpha | starchat_human | 1 |
-|||||
-| mistral-stdft | Mistral-7B-Instruct-v0.1 | llama_llm | 0 |
-| mistral-morepair | Mistral-7B-Instruct-v0.1 | llama_llm | 1 |
-| mistral-cot | Mistral-7B-Instruct-v0.1 | llama_cot | 0 |
-| mistral-human | Mistral-7B-Instruct-v0.1 | llama_human | 1 |
-
-If you want to reproduce the results of RepairLLaMA, you can run the following command.
-
-```
-bash repairllama.sh
-```
-
-After re-inference, you can follow the steps in the `rq1.sh`, `rq2.sh`, and `rq3.sh` files to generate the evaluation results.
-
-```
-bash rq1.sh rejudge
-bash rq2.sh rejudge
-bash rq3.sh rejudge
-```
-
-## Tutorial to Train Your Own Multi-Objective Fine-Tuning Model
-1. Prepare the dataset
-
-The dataset designated for fine-tuning needs to be formatted similarly to `data/trainset/*.json`, comprising a list of dictionaries. Each dictionary should have a solitary key, `text`, whose value is the amalgamation of three parts: the input, the output for the first objective, and the output for the second objective. These parts are separated by an end-of-sentence (EOS) token, such as `</s>` for Llama, and the entire value should also terminate with an EOS token. When employing a model that has undergone instruction-based fine-tuning as the base model, it is recommended to present the input data in the established instruction format. This approach aids in achieving superior fine-tuning outcomes.
-
-2. Fine-tuning
-
-To conduct multi-objective fine-tuning, the `MOTrain.py` script requires the provision of three parameters. These are the name of the base model, the file location of the dataset, and the directory for saving the fine-tuned model. Please note, that the script is designed to store the trained model within a specified subdirectory of the `./models` directory.
-
-3. Inference
-
-When deploying the fine-tuned model for inference tasks, it is straightforward to utilize the model files found in the `./codellama_merged` subdirectory, which is nested within the relevant `./models` subdirectory. These model files can be freely copied for any intended use. For guidance on the inference process, you can refer to the methodology outlined in the `inference_cpp.py` script. It is advisable to employ 8-bit quantization to optimize the use of computational resources during inference.
+3.  **Specific Model Fine-tuning & Inference:**
+    The `finetune_and_inference.sh` script can be used.
+    Example (inside Docker):
+    ```bash
+    # python3 fetch_data.py # If TutorLLMCode is not yet downloaded
+    # bash finetune_and_inference.sh CodeLlama-13b-Instruct-hf llama_llm codellama13b-stdft 0
+    ```
+    Consult the original `README.md`'s parameter table for model, dataset, and lambda configurations.
