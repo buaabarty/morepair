@@ -1,4 +1,4 @@
-# MORepair: Enhancing Program Repair with LLMs via Multi-Objective Fine-Tuning
+# MORepair: Teaching LLMs to Repair Code via Multi-Objective Fine-tuning
 
 <p align="center">
   <a href="https://doi.org/10.1145/3735129"><img src="https://img.shields.io/badge/DOI-10.1145/3735129-blue.svg" alt="Paper DOI"></a>
