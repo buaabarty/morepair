@@ -30,6 +30,25 @@ journal = {ACM Trans. Softw. Eng. Methodol.},
 Explore MORepair with our Colab Notebook:
 [MORepair Demo](https://colab.research.google.com/drive/1vlabdN5Oucm-5kVtMHuEw-kvqDOtB5hg)
 
+## 📚 Datasets
+
+MORepair is evaluated on five carefully curated datasets, covering different programming languages and repair scenarios:
+
+### 🎯 Training Dataset
+| Dataset | Description | Size | Language | Obtain |
+|---------|-------------|------|----------|---------|
+| TutorLLMCode | High-quality C++ code repair dataset with human and LLM-generated rationales | 1.2K | C++ | [Website](https://tutorcode.org/docs/) |
+
+### 🏆 Evaluation Benchmarks
+| Dataset | Description | Size | Language | Obtain |
+|---------|-------------|------|----------|---------|
+| EvalRepair-Java | Real-world Java program repair benchmark derived from HumanEval | 163 | Java | [Hugging Face](https://huggingface.co/datasets/barty/EvalRepair-Java) |
+| EvalRepair-C++ | Real-world C++ program repair benchmark derived from HumanEval | 164 | C++ | [Hugging Face](https://huggingface.co/datasets/barty/EvalRepair-Cpp) |
+| D4J-Repair | single-function subset of Defects4J | 371 | Java | [Hugging Face](https://huggingface.co/datasets/barty/D4J-Repair) |
+| SWE-Repair | single-function subset of SWE-Bench | 204 | Multi | [Hugging Face](https://huggingface.co/datasets/barty/SWE-Repair) |
+
+> 💡 **Note**: All datasets are preprocessed and ready to use. For detailed dataset statistics and usage instructions, please refer to our [paper](https://doi.org/10.1145/3735129).
+
 ## MORepair Framework Overview
 
 MORepair is a novel **M**ulti-**O**bjective fine-tuning framework designed specifically for LLM-based program **Repair**. It steers LLMs toward a precise understanding of the reasoning logic behind the repair process, thereby enabling them to generate high-quality patches.
@@ -107,16 +126,6 @@ python3 MOTrain.py \\
 The fine-tuned model (LoRA adapters and potentially merged model) will be saved in `./models/<your_output_model_dir_name>`. For inference, use the model files from the `./codellama_merged` (or similarly named) subdirectory.
 
 The `inference_cpp.py` script provides an example of an inference pipeline. Using 8-bit quantization is recommended to optimize resource usage.
-
-## Datasets Overview
-
-| Dataset | Description | Obtain |
-|---------|-------------|----------|
-| TutorLLMCode | C++ dataset with code repair rationales, [here is the detailed description](TutorLLMCode.md). | [Website](https://tutorcode.org/docs/) |
-| EvalRepair-Java | A benchmark for evaluating Java program repair performance | [Hugging Face](https://huggingface.co/datasets/barty/EvalRepair-Java) |
-| EvalRepair-C++ | A benchmark for evaluating C++ program repair performance | [Hugging Face](https://huggingface.co/datasets/barty/EvalRepair-Cpp) |
-| D4J-Repair | A collection of reproducible bugs from real-world Java projects | [Hugging Face](https://huggingface.co/datasets/barty/D4J-Repair) |
-| SWE-Repair | A benchmark for evaluating software engineering tasks | [Hugging Face](https://huggingface.co/datasets/barty/SWE-Repair) |
 
 ## (Optional) Reproducing Paper Results
 
