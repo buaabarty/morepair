@@ -110,8 +110,13 @@ The `inference_cpp.py` script provides an example of an inference pipeline. Usin
 
 ## Datasets Overview
 
-*   **TutorLLMCode**: C++ dataset with code repair rationales. See [TutorLLMCode.md](TutorLLMCode.md).
-*   **EvalRepair-C++ & EvalRepair-Java**: Benchmarks for evaluating program repair performance, derived from HumanEval.
+| Dataset | Description | Obtain |
+|---------|-------------|----------|
+| TutorLLMCode | C++ dataset with code repair rationales, [here is the detailed description](TutorLLMCode.md). | [Website](https://tutorcode.org/docs/) |
+| EvalRepair-Java | A benchmark for evaluating Java program repair performance | [Hugging Face](https://huggingface.co/datasets/barty/EvalRepair-Java) |
+| EvalRepair-C++ | A benchmark for evaluating C++ program repair performance | [Hugging Face](https://huggingface.co/datasets/barty/EvalRepair-Cpp) |
+| D4J-Repair | A collection of reproducible bugs from real-world Java projects | [Hugging Face](https://huggingface.co/datasets/barty/D4J-Repair) |
+| SWE-Repair | A benchmark for evaluating software engineering tasks | [Hugging Face](https://huggingface.co/datasets/barty/SWE-Repair) |
 
 ## (Optional) Reproducing Paper Results
 
