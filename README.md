@@ -32,12 +32,12 @@ Explore MORepair with our Colab Notebook:
 
 ## 📚 Datasets
 
-MORepair is evaluated on five carefully curated datasets, covering different programming languages and repair scenarios:
+MORepair is trained on TutorLLMCode, and evaluated on four carefully curated datasets, covering different programming languages and repair scenarios:
 
 ### 🎯 Training Dataset
 | Dataset | Description | Size | Language | Obtain |
 |---------|-------------|------|----------|---------|
-| TutorLLMCode | High-quality C++ code repair dataset with human and LLM-generated rationales | 1.2K | C++ | [Website](https://tutorcode.org/docs/) |
+| TutorLLMCode | High-quality C++ code repair dataset with human and LLM-generated rationales | 1.5K | C++ | [Website](https://tutorcode.org/docs/) |
 
 ### 🏆 Evaluation Benchmarks
 | Dataset | Description | Size | Language | Obtain |
