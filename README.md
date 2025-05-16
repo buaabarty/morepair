@@ -13,7 +13,7 @@
 If you use MORepair in your research, please cite our paper:
 
 ```bibtex
-@article{10.1145/3735129,
+@article{yang25morepair,
 author = {Yang, Boyang and Tian, Haoye and Ren, Jiadong and Zhang, Hongyu and Klein, Jacques and Bissyande, Tegawende and Le Goues, Claire and Jin, Shunfu},
 title = {MORepair: Teaching LLMs to Repair Code via Multi-Objective Fine-Tuning},
 year = {2025},
